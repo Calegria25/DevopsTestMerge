@@ -4,13 +4,14 @@ pipeline {
         maven 'jenkinsmaven'
         jdk 'Java17'
     }
-    stage('Demount'){
-      steps{
-        sh 'docker stop proyectofinal || true &&  docker rm proyectofinal || true'
-       
-      }
-    }
+
     stages {
+        stage('Demount'){
+            steps{
+                sh 'docker stop proyectofinal || true &&  docker rm proyectofinal || true'
+       
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Construyendo la aplicacion'
