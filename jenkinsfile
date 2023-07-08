@@ -18,12 +18,13 @@ pipeline {
 				echo 'Finalizado los tests '
             }
         }
-        stage('Build and Run docker')
+        stage('Build and Run docker'){
             steps{
                 sh 'docker build -t proyectofinal .'
                 sh 'docker run -d -p 9090:9090 --name proyectofinal proyectofinal'
                 sh 'docker tag proyectofinal calegria27/proyectofinal:latest'
             }
+        }
         // stage('Sonarqube Analisis') {
         //     steps {
         //         sh ' mvn sonar:sonar \
