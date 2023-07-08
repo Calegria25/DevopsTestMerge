@@ -4,7 +4,7 @@ pipeline {
         scannerHome = tool 'sonar'
     }
     tools {
-        maven 'jenkinsmaven'
+        // maven 'jenkinsmaven'
         jdk 'Java17'
     }
 
@@ -27,8 +27,17 @@ pipeline {
             	sh 'mvn test'
 				echo 'Finalizado los tests '
             }
+            steps{
+             withSonarQubeEnv(installationName: 'sonar'){
+                sh"mvn sonar:sonar \
+                    -Dsonar.projectKey=PtoyectoFinal \
+                    -Dsonar.host.url=http://192.168.80.1:9000 \
+                    -Dsonar.login=8619ce39fb090717ceb43ef97abef5388d64e7a8"
+             }
+             }
+            
         }
-         stage('SonarScan'){
+        stage('SonarScan'){
              steps{
              withSonarQubeEnv(installationName: 'sonar'){
                 sh"mvn sonar:sonar \
