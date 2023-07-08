@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    tools {
+        maven 'jenkinsmaven'
+        jdk 'Java17'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Construyendo la aplicacion'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+            	echo 'Ejecutando los tests '
+            	sh 'mvn test'
+				echo 'Finalizado los tests '
+            }
+        }
+        stage('Build and Run docker')
+            steps{
+                sh 'docker build -t proyectofinal .'
+                sh 'docker run -d -p 9090:9090 --name proyectofinal proyectofinal'
+                sh 'docker tag proyectofinal calegria27/proyectofinal:latest'
+            }
+        // stage('Sonarqube Analisis') {
+        //     steps {
+        //         sh ' mvn sonar:sonar \
+        //             -Dsonar.projectKey=PtoyectoFinal \
+        //             -Dsonar.host.url=http://sonarqube:9000 \
+        //             -Dsonar.login=7519d0a385eef0af39282866a4f67747bf47c5fb'
+        //     }
+        // }
+        stage{
+            steps{
+                echo 'Push a DockerHub'
+                sh 'docker push calegria27/proyectofinal:latest'
+            }
+        }
+    }
+}
+ 
