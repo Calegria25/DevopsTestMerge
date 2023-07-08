@@ -4,6 +4,12 @@ pipeline {
         maven 'jenkinsmaven'
         jdk 'Java17'
     }
+    stage('Demount'){
+      steps{
+        sh 'docker stop proyectofinal || true &&  docker rm proyectofinal || true'
+       
+      }
+    }
     stages {
         stage('Build') {
             steps {
@@ -36,6 +42,7 @@ pipeline {
         stage('Docker push'){
             steps{
                 echo 'Push a DockerHub'
+                sh 'docker login'
                 sh 'docker push calegria27/proyectofinal:latest'
             }
         }
