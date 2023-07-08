@@ -31,7 +31,6 @@ pipeline {
          stage('SonarScan'){
              steps{
              withSonarQubeEnv(installationName: 'sonar'){
-             sh "cd /var/jenkins_home/workspace/proyectoFinalDevOps"
              sh "${scannerHome}/bin/sonar-scanner \
                  mvn sonar:sonar \
                  -Dsonar.projectKey=PtoyectoFinal \
