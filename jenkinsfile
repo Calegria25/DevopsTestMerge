@@ -33,7 +33,7 @@ pipeline {
         //             -Dsonar.login=7519d0a385eef0af39282866a4f67747bf47c5fb'
         //     }
         // }
-        stage{
+        stage('Docker push'){
             steps{
                 echo 'Push a DockerHub'
                 sh 'docker push calegria27/proyectofinal:latest'
