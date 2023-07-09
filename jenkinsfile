@@ -40,19 +40,13 @@ pipeline {
              }
          }
 
-        //  stage('Sonar Scanner') {
-        //      steps {
-        //          withSonarQubeEnv('sonar'){
-        //              script {
-        //                  def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-        //                  withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
-        //                  sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://192.168.80.1:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=PtoyectoFinal -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=GS -Dsonar.sources=src/main/java/com/kibernumacademy/devops -Dsonar.tests=src/test/java/com/kibernumacademy/devops -Dsonar.language=java -Dsonar.java.binaries=."
-        //              }
-        //              }
-        //          }
-        //      }
-        //  }
-
+          stage('Sonarqube quality gate') {
+              steps {
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+         }
 
 
 
