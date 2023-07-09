@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Demount'){
             steps{
-                sh 'sudo docker stop proyectofinal || true &&  sudo docker rm proyectofinal || true'
+                sh 'docker stop proyectofinal || true &&  docker rm proyectofinal || true'
        
             }
         }
@@ -60,16 +60,16 @@ pipeline {
 
         stage('Build and Run docker'){
             steps{
-                sh 'sudo docker build -t proyectofinal .'
-                sh 'sudo docker run -d -p 9090:9090 --name proyectofinal proyectofinal'
-                sh 'sudo docker tag proyectofinal calegria27/proyectofinal:latest'
+                sh 'docker build -t proyectofinal .'
+                sh 'docker run -d -p 9090:9090 --name proyectofinal proyectofinal'
+                sh 'docker tag proyectofinal calegria27/proyectofinal:latest'
             }
         }
         stage('Docker push'){
             steps{
                 echo 'Push a DockerHub'
-                sh 'sudo docker login'
-                sh 'sudo docker push calegria27/proyectofinal:latest'
+                sh 'docker login'
+                sh 'docker push calegria27/proyectofinal:latest'
             }
         }
     }
