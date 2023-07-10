@@ -33,7 +33,7 @@ pipeline {
               withSonarQubeEnv(installationName: 'sonar'){
                  sh 'cd /var/jenkins_home/workspace/proyectoFinalDevOps'
                  sh "mvn sonar:sonar \
-                    -Dsonar.projectKey=PtoyectoFinal \
+                    -Dsonar.projectKey=devopsfinal \
                     -Dsonar.host.url=http:192.168.80.1:9000 \
                     -Dsonar.login=3beb90a96db67adc60992beb6027d003a75ace97"
              }
